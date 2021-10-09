@@ -21,3 +21,5 @@ CREATE TABLE IF NOT EXISTS TRANSACOES (
     valor money,
     dataTransacao date
 );
+
+INSERT INTO PESSOAS(nome, cpf, dataNascimento) VALUES ('teste', '12345678910', CURRENT_DATE);
