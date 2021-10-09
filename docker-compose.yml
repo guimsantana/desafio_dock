@@ -1,0 +1,33 @@
+version: '3.2'
+
+services:
+  db:
+    image: postgres:9.6
+    container_name: "postgres"
+    environment:
+      - POSTGRES_DB=desafio
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=desafio123
+      - TZ=GMT
+    volumes:
+      - "./data/postgres:/var/lib/postgresql/data"
+    ports:
+      - 5432:5432
+
+  api:
+      image: node:latest
+      container_name: api
+      restart: always
+      depends_on:
+        - db
+      ports:
+        - 3000:3000
+      volumes:
+        - .:/usr/src/app
+      working_dir: /usr/src/app
+      command: npm start
+      logging:
+        driver: "json-file"
+        options:
+          max-size: "10m"
+          max-file: "5"
